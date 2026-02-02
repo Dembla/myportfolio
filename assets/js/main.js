@@ -10,7 +10,7 @@ async function loadComponent(elementId, componentPath) {
 }
 
 // Load all components when DOM is ready
-document.addEventListener('DOMContentLoaded', async function() {
+document.addEventListener('DOMContentLoaded', async function () {
     // Load all components
     await Promise.all([
         loadComponent('navigation', 'components/navigation.html'),
@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         loadComponent('projects-section', 'components/projects.html'),
         loadComponent('certificates-section', 'components/certificates.html'),
         loadComponent('hackathons-section', 'components/hackathons.html'),
+        loadComponent('contact-section', 'components/contact.html'),
         loadComponent('footer-section', 'components/footer.html')
     ]);
 
@@ -59,4 +60,25 @@ document.addEventListener('DOMContentLoaded', async function() {
             }
         });
     });
+
+    // Mobile Menu Toggle
+    setTimeout(() => {
+        const menuToggle = document.getElementById('mobile-menu');
+        const navLinksContainer = document.querySelector('.nav-links');
+
+        if (menuToggle && navLinksContainer) {
+            menuToggle.addEventListener('click', () => {
+                menuToggle.classList.toggle('is-active');
+                navLinksContainer.classList.toggle('active');
+            });
+
+            // Close menu when a link is clicked
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    menuToggle.classList.remove('is-active');
+                    navLinksContainer.classList.remove('active');
+                });
+            });
+        }
+    }, 500); // 500ms delay to ensure component is loaded
 });

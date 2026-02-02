@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="contact-wrapper">
+        <details class="contact-details">
+            <summary class="contact-summary">
+                <h2 class="section-title" style="display:inline-block; margin-bottom:0;">Contact Me</h2>
+                <span class="toggle-icon">+</span>
+            </summary>
+            <div class="contact-content">
+                <!-- IMPORTANT: Replace YOUR_FORM_ID with your actual Formspree Form ID -->
+                <form action="https://formspree.io/f/xykpjvkj" method="POST" class="contact-form">
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" required class="form-control"
+                            placeholder="Project Inquiry">
+                    </div>
+                    <div class="form-group">
+                        <label for="sender-email">Your Email ID</label>
+                        <input type="email" id="sender-email" name="email" required class="form-control"
+                            placeholder="you@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea id="description" name="message" rows="5" required class="form-control"
+                            placeholder="How can I help you?"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">Send Message</button>
+                    </div>
+                </form>
+            </div>
+        </details>
+    </div>
+</div>
