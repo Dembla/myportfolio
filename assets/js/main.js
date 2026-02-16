@@ -1,9 +1,12 @@
 // Component loader function
 async function loadComponent(elementId, componentPath) {
     try {
+        const element = document.getElementById(elementId);
+        if (!element) return;
+
         const response = await fetch(componentPath);
         const html = await response.text();
-        document.getElementById(elementId).innerHTML = html;
+        element.innerHTML = html;
     } catch (error) {
         console.error(`Error loading component ${componentPath}:`, error);
     }
@@ -25,16 +28,49 @@ document.addEventListener('DOMContentLoaded', async function () {
         loadComponent('footer-section', 'components/footer.html')
     ]);
 
+    // Handle navigation links for different pages
+    if (!window.location.pathname.endsWith('index.html') && !window.location.pathname.endsWith('/')) {
+        // If we are NOT on index.html (e.g. on til.html), ensure nav links point to index.html
+        // The links in navigation.html are now "index.html#section", which works for external pages.
+        // But for index.html itself, we might want to strip "index.html" to avoid reloads/url changes if desired,
+        // although "index.html#section" is valid.
+        // However, since I updated navigation.html to have 'index.html#...', 
+        // they will work fine from til.html.
+        // But on index.html, they might cause a reload if not handled or just standard anchor behavior.
+        // Smooth scroll listener below handles 'a[href^="#"]', so we need to make sure
+        // on index.html we treat 'index.html#hash' as just '#hash' for smooth scroll.
+    }
+
+
     // Add smooth scrolling for navigation links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    document.querySelectorAll('a').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+            const href = this.getAttribute('href');
+            // Check if it's a hash link OR a link to index.html#hash and we are on index
+            const isIndex = window.location.pathname.endsWith('index.html') || window.location.pathname.endsWith('/');
+
+            if (href.startsWith('#') || (isIndex && href.includes('index.html#'))) {
+                const hash = href.includes('#') ? '#' + href.split('#')[1] : null;
+                if (hash) {
+                    e.preventDefault();
+                    const target = document.querySelector(hash);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                        // Update URL without reload
+                        history.pushState(null, null, hash);
+
+                        // Close mobile menu if open
+                        const menuToggle = document.getElementById('mobile-menu');
+                        const navLinksContainer = document.querySelector('.nav-links');
+                        if (menuToggle && navLinksContainer && menuToggle.classList.contains('is-active')) {
+                            menuToggle.classList.remove('is-active');
+                            navLinksContainer.classList.remove('active');
+                        }
+                    }
+                }
             }
         });
     });
@@ -55,7 +91,9 @@ document.addEventListener('DOMContentLoaded', async function () {
 
         navLinks.forEach(link => {
             link.classList.remove('active');
-            if (link.getAttribute('href') === `#${current}`) {
+            const href = link.getAttribute('href');
+            // Match if href is exactly the hash or ends with the hash (for index.html#section)
+            if (href === `#${current}` || href.endsWith(`#${current}`)) {
                 link.classList.add('active');
             }
         });

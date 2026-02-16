@@ -810,3 +810,165 @@ html {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--accent-secondary);
 }
+
+/* TIL Section */
+.til-section {
+    padding-top: 120px;
+    /* Account for fixed nav */
+    min-height: 100vh;
+}
+
+.til-intro {
+    color: var(--text-secondary);
+    margin-bottom: 3rem;
+    font-size: 1.1rem;
+}
+
+.til-grid {
+    display: grid;
+    gap: 1.5rem;
+    max-width: 800px;
+}
+
+.til-card {
+    background: var(--bg-secondary);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.til-card:hover {
+    border-color: var(--accent-primary);
+    transform: translateX(5px);
+}
+
+.til-card[open] {
+    border-color: var(--accent-primary);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.til-card summary {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.til-card summary::-webkit-details-marker {
+    display: none;
+}
+
+.til-date {
+    color: var(--accent-secondary);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    background: rgba(255, 0, 110, 0.1);
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    white-space: nowrap;
+}
+
+.til-title {
+    flex: 1;
+}
+
+.til-content {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    color: var(--text-muted);
+    line-height: 1.8;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.til-content code {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    color: var(--accent-primary);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+}
+
+.til-content pre {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+
+.til-content pre code {
+    background: transparent;
+    padding: 0;
+    color: var(--text-primary);
+}
+
+/* Nav Highlight */
+.til-link {
+    color: var(--accent-primary) !important;
+    font-weight: 700;
+    position: relative;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--accent-primary);
+    border-radius: 4px;
+    transition: all 0.1s ease-out;
+    margin-left: 1rem;
+}
+
+.til-link:hover {
+    background: rgba(0, 240, 255, 0.15);
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+.til-link::after {
+    display: none;
+    /* Remove the underline effect */
+}
+
+/* Custom Tooltip */
+.til-link::before {
+    content: "Today I Learn";
+    position: absolute;
+    top: 100%;
+    right: 0;
+    transform: translateY(10px);
+    background: var(--bg-secondary);
+    border: 1px solid var(--accent-primary);
+    color: var(--accent-primary);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.2s ease;
+    z-index: 1001;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.til-link:hover::before {
+    opacity: 1;
+    transform: translateY(15px);
+}
+
+.til-link::after {
+    display: none;
+    /* Remove the underline effect */
+}
+
+@media (max-width: 768px) {
+    .til-link {
+        margin-left: 0;
+        width: 100%;
+        text-align: center;
+        margin-top: 1rem;
+    }
+}
