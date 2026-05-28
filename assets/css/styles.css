@@ -482,6 +482,57 @@ details[open] .experience-summary {
     transform: translateX(5px);
 }
 
+/* Link card for Hackathon details */
+.hackathon-link-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+.hackathon-link-card:hover {
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.15);
+}
+
+/* Elegant bounce tooltip */
+.hackathon-link-card .tooltip-box {
+    position: absolute;
+    bottom: calc(100% + 12px);
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: var(--gradient-1);
+    color: var(--bg-primary);
+    padding: 0.5rem 1.2rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 5px 15px rgba(0, 240, 255, 0.3);
+    z-index: 10;
+}
+
+/* Tooltip arrow */
+.hackathon-link-card .tooltip-box::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px 6px 0;
+    border-style: solid;
+    border-color: #00f0ff transparent;
+}
+
+.hackathon-link-card:hover .tooltip-box {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
 .certificate-item h3,
 .hackathon-item h3 {
     font-size: 1.2rem;
