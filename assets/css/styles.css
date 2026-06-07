@@ -382,6 +382,15 @@ details[open] .experience-summary {
     transition: all 0.3s ease;
 }
 
+.project-card.project-link-card {
+    overflow: visible;
+}
+
+.project-card.project-link-card .project-header {
+    border-top-left-radius: 11px;
+    border-top-right-radius: 11px;
+}
+
 .project-card:hover {
     border-color: var(--accent-secondary);
     transform: translateY(-5px);
@@ -482,8 +491,9 @@ details[open] .experience-summary {
     transform: translateX(5px);
 }
 
-/* Link card for Hackathon details */
-.hackathon-link-card {
+/* Link card for Hackathon and Project details */
+.hackathon-link-card,
+.project-link-card {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -492,12 +502,14 @@ details[open] .experience-summary {
     cursor: pointer;
 }
 
-.hackathon-link-card:hover {
+.hackathon-link-card:hover,
+.project-link-card:hover {
     box-shadow: 0 0 20px rgba(0, 240, 255, 0.15);
 }
 
 /* Elegant bounce tooltip */
-.hackathon-link-card .tooltip-box {
+.hackathon-link-card .tooltip-box,
+.project-link-card .tooltip-box {
     position: absolute;
     bottom: calc(100% + 12px);
     left: 50%;
@@ -517,7 +529,8 @@ details[open] .experience-summary {
 }
 
 /* Tooltip arrow */
-.hackathon-link-card .tooltip-box::after {
+.hackathon-link-card .tooltip-box::after,
+.project-link-card .tooltip-box::after {
     content: '';
     position: absolute;
     top: 100%;
@@ -528,7 +541,8 @@ details[open] .experience-summary {
     border-color: #00f0ff transparent;
 }
 
-.hackathon-link-card:hover .tooltip-box {
+.hackathon-link-card:hover .tooltip-box,
+.project-link-card:hover .tooltip-box {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
 }
